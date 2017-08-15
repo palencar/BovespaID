@@ -29,6 +29,8 @@ get.data <- function(my.assets = NULL, time.frame = "1M", start.date = as.Date("
 
   map <- new.env(hash=T, parent=emptyenv())
 
+  dir.create(cache.dir, showWarnings=FALSE)
+
   for(i in 1:length(first.date))
   {
     cat(paste0("\nCaching data from ", first.date[i], " to ", last.date[i], "\n"))

@@ -195,9 +195,10 @@ adjRatios.intraday <- function (splits, dividends, close)
   }
 
   obj <- merge.xts(close, splits, dividends)
-  #if (!isTRUE(is.na(close))) {
-  #  obj <- obj[!is.na(obj[, 1]), ]
-  #}
+  if (!isTRUE(is.na(close))) {
+    obj$Close <- na.locf(obj$Close)
+    obj <- obj[!is.na(obj[, 1]), ]
+  }
   adj <- .Call("adjRatios", obj[, 2], obj[, 3], obj[, 1], PACKAGE = "TTR")
   adj <- xts(cbind(adj[[1]], adj[[2]]), index(obj))
 
